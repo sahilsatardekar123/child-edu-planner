@@ -1,96 +1,372 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Child Education Planner</title>
     <style>
+        :root {
+            --primary: #0275d8;
+            --primary-hover: #025aa5;
+            --border: #ddd;
+            --text-light: #555;
+            --bg-light: #f8f9fa;
+            --shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            padding: 20px;
+            background-color: #f5f5f5;
+            min-height: 100vh;
+        }
+        
         #child-edu-planner {
-            max-width: 420px; 
-            margin: 1.5em auto; 
-            padding: 20px; 
-            border: 1px solid #ccc; 
-            border-radius: 8px; 
-            font-family: sans-serif;
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 25px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
         }
-        button {
-            width: 100%; 
-            padding: 10px; 
-            background: #0275d8; 
-            color: #fff; 
-            border: none; 
-            border-radius: 4px; 
-            margin-top: 18px; 
-            font-size: 1em;
+        
+        h3 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: var(--primary);
+            font-size: 1.5rem;
         }
-        #edu-results {
-            display: none; 
-            margin-top: 20px; 
-            padding: 16px; 
-            border: 1px dashed #888; 
-            background: #f1f1f1; 
+        
+        .input-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 500;
+            color: #444;
+        }
+        
+        input[type="number"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--border);
             border-radius: 6px;
+            font-size: 1rem;
+            transition: all 0.2s;
+        }
+        
+        input[type="number"]:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(2, 117, 216, 0.1);
+        }
+        
+        button {
+            width: 100%;
+            padding: 14px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            margin-top: 20px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        
+        button:hover {
+            background: var(--primary-hover);
+        }
+        
+        #edu-results {
+            display: none;
+            margin-top: 25px;
+            padding: 20px;
+            background: var(--bg-light);
+            border: 1px dashed var(--border);
+            border-radius: 8px;
+            animation: fadeIn 0.3s ease-out;
+        }
+        
+        .result-row {
+            display: flex;
+            justify-content: space-between;
+            margin: 12px 0;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .result-row:last-child {
+            border-bottom: none;
+        }
+        
+        .result-value {
+            font-weight: 600;
+            color: var(--primary);
+        }
+        
+        .disclaimer {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-top: 15px;
+            line-height: 1.4;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 480px) {
+            body {
+                padding: 15px;
+            }
+            
+            #child-edu-planner {
+                padding: 20px;
+            }
+            
+            h3 {
+                font-size: 1.3rem;
+            }
+            
+            input[type="number"] {
+                padding: 10px;
+            }
+        }
+        
+        /* Tooltip styles */
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            margin-left: 5px;
+            cursor: help;
+        }
+        
+        .tooltip-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 18px;
+            height: 18px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            font-size: 0.7rem;
+            font-weight: bold;
+        }
+        
+        .tooltip-text {
+            visibility: hidden;
+            width: 200px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 8px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 0.8rem;
+            font-weight: normal;
+        }
+        
+        .tooltip:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
         }
     </style>
 </head>
 <body>
     <div id="child-edu-planner">
-        <h3 style="text-align:center; margin-bottom:18px;">🎓 Child Education Planner</h3>
-        <label for="edu-age-now">Child’s Current Age (years):</label><br>
-        <input id="edu-age-now" type="number" min="0" value="3" style="width:100%;">
-        <label for="edu-age-goal" style="margin-top:12px; display:inline-block;">Age When Funds Are Needed:</label><br>
-        <input id="edu-age-goal" type="number" min="0" value="18" style="width:100%;">
-        <label for="edu-present-cost" style="margin-top:12px; display:inline-block;">Present Cost (₹):</label><br>
-        <input id="edu-present-cost" type="number" value="500000" style="width:100%;">
-        <label for="edu-inflation" style="margin-top:12px; display:inline-block;">Estimated Annual Inflation Rate %:</label><br>
-        <input id="edu-inflation" type="number" step="0.1" value="7" style="width:100%;">
-        <label for="edu-return" style="margin-top:12px; display:inline-block;">Expected Return on Investment %:</label><br>
-        <input id="edu-return" type="number" step="0.1" value="12" style="width:100%;">
-        <label for="edu-savings" style="margin-top:12px; display:inline-block;">(Optional) Current Lump‑Sum Savings (₹):</label><br>
-        <input id="edu-savings" type="number" value="0" style="width:100%;">
-        <button id="edu-calc-button" type="button">Calculate</button>
+        <h3>🎓 Child Education Planner</h3>
+        
+        <div class="input-group">
+            <label for="edu-age-now">
+                Child's Current Age (years)
+                <span class="tooltip">
+                    <span class="tooltip-icon">?</span>
+                    <span class="tooltip-text">Enter your child's current age in years</span>
+                </span>
+            </label>
+            <input id="edu-age-now" type="number" min="0" value="3">
+        </div>
+        
+        <div class="input-group">
+            <label for="edu-age-goal">
+                Age When Funds Are Needed
+                <span class="tooltip">
+                    <span class="tooltip-icon">?</span>
+                    <span class="tooltip-text">Age when your child will need the education funds</span>
+                </span>
+            </label>
+            <input id="edu-age-goal" type="number" min="0" value="18">
+        </div>
+        
+        <div class="input-group">
+            <label for="edu-present-cost">
+                Present Cost (₹)
+                <span class="tooltip">
+                    <span class="tooltip-icon">?</span>
+                    <span class="tooltip-text">Current cost of the education you're planning for</span>
+                </span>
+            </label>
+            <input id="edu-present-cost" type="number" value="500000">
+        </div>
+        
+        <div class="input-group">
+            <label for="edu-inflation">
+                Estimated Annual Inflation Rate (%)
+                <span class="tooltip">
+                    <span class="tooltip-icon">?</span>
+                    <span class="tooltip-text">Expected yearly increase in education costs</span>
+                </span>
+            </label>
+            <input id="edu-inflation" type="number" step="0.1" value="7">
+        </div>
+        
+        <div class="input-group">
+            <label for="edu-return">
+                Expected Return on Investment (%)
+                <span class="tooltip">
+                    <span class="tooltip-icon">?</span>
+                    <span class="tooltip-text">Expected annual return on your investments</span>
+                </span>
+            </label>
+            <input id="edu-return" type="number" step="0.1" value="12">
+        </div>
+        
+        <div class="input-group">
+            <label for="edu-savings">
+                (Optional) Current Lump-Sum Savings (₹)
+                <span class="tooltip">
+                    <span class="tooltip-icon">?</span>
+                    <span class="tooltip-text">Any existing savings you've set aside for this goal</span>
+                </span>
+            </label>
+            <input id="edu-savings" type="number" value="0">
+        </div>
+        
+        <button id="edu-calc-button" type="button">Calculate Education Plan</button>
+        
         <div id="edu-results">
-            <div><strong>Future Cost:</strong> ₹<span id="edu-future-cost">‑</span></div>
-            <div><strong>Shortfall:</strong> ₹<span id="edu-shortfall">‑</span></div>
-            <div><strong>Monthly Budget Need:</strong> ₹<span id="edu-sip">‑</span></div>
-            <div><strong>Required Lumpsum Today:</strong> ₹<span id="edu-lumpsum">‑</span></div>
-            <div style="font-size:.85em; color:#555; margin-top:10px;">*Estimates only. Assumes fixed annual compounded inflation and return.</div>
+            <div class="result-row">
+                <span><strong>Future Cost:</strong></span>
+                <span id="edu-future-cost" class="result-value">₹‑</span>
+            </div>
+            <div class="result-row">
+                <span><strong>Shortfall:</strong></span>
+                <span id="edu-shortfall" class="result-value">₹‑</span>
+            </div>
+            <div class="result-row">
+                <span><strong>Monthly Investment Needed:</strong></span>
+                <span id="edu-sip" class="result-value">₹‑</span>
+            </div>
+            <div class="result-row">
+                <span><strong>Required Lumpsum Today:</strong></span>
+                <span id="edu-lumpsum" class="result-value">₹‑</span>
+            </div>
+            <p class="disclaimer">
+                *Estimates only. Assumes fixed annual compounded inflation and return. 
+                Actual results may vary based on market conditions.
+            </p>
         </div>
     </div>
 
     <script>
     document.addEventListener('DOMContentLoaded', () => {
         const $ = id => document.getElementById(id);
-        $('edu-calc-button').addEventListener('click', () => {
-            const ageNow = +( $('edu-age-now').value ) || 0;
-            const ageGoal = +( $('edu-age-goal').value ) || ageNow;
+        const inputs = document.querySelectorAll('input[type="number"]');
+        
+        // Format number with Indian locale commas
+        const formatCurrency = val => {
+            return Number.isFinite(val) 
+                ? '₹' + Math.round(val).toLocaleString('en-IN')
+                : '₹0';
+        };
+        
+        // Calculate and display results
+        function calculatePlan() {
+            const ageNow = +($('edu-age-now').value) || 0;
+            const ageGoal = +($('edu-age-goal').value) || ageNow;
             const years = Math.max(ageGoal - ageNow, 0);
-            const present = +( $('edu-present-cost').value ) || 0;
-            const inflation = +( $('edu-inflation').value ) / 100 || 0;
-            const rate = +( $('edu-return').value ) / 100 || 0;
-            const savings = +( $('edu-savings').value ) || 0;
+            const present = +($('edu-present-cost').value) || 0;
+            const inflation = +($('edu-inflation').value) / 100 || 0;
+            const rate = +($('edu-return').value) / 100 || 0;
+            const savings = +($('edu-savings').value) || 0;
+            
+            // Validate inputs
+            if (years <= 0) {
+                alert("Please enter a future age greater than current age");
+                return;
+            }
 
+            // Calculate future cost
             const futureCost = present * Math.pow(1 + inflation, years);
+            
+            // Calculate future value of current savings
             const futureSavings = savings * Math.pow(1 + rate, years);
+            
+            // Calculate shortfall
             const shortfall = Math.max(futureCost - futureSavings, 0);
+            
+            // Calculate monthly SIP needed
             const months = years * 12;
-            const rMonth = rate / 12;
+            const monthlyRate = rate / 12;
             let sip = 0;
-            if (months > 0 && rMonth > 0) {
-                sip = shortfall * rMonth / (Math.pow(1 + rMonth, months) - 1);
+            
+            if (months > 0 && monthlyRate > 0) {
+                sip = shortfall * monthlyRate / (Math.pow(1 + monthlyRate, months) - 1);
             } else if (months > 0) {
                 sip = shortfall / months;
             }
+            
+            // Calculate lumpsum needed today
             const lumpsum = shortfall / Math.pow(1 + rate, years);
 
-            const fmt = val => Number.isFinite(val)
-                ? Math.round(val).toLocaleString('en-IN')
-                : '0';
-            $('edu-future-cost').innerText = fmt(futureCost);
-            $('edu-shortfall').innerText = fmt(shortfall);
-            $('edu-sip').innerText = fmt(sip);
-            $('edu-lumpsum').innerText = fmt(lumpsum);
-
+            // Update results
+            $('edu-future-cost').innerText = formatCurrency(futureCost);
+            $('edu-shortfall').innerText = formatCurrency(shortfall);
+            $('edu-sip').innerText = formatCurrency(sip);
+            $('edu-lumpsum').innerText = formatCurrency(lumpsum);
+            
+            // Show results with animation
             $('edu-results').style.display = 'block';
+            
+            // Scroll to results if they're not fully visible
+            $('edu-results').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+        
+        // Add event listeners
+        $('edu-calc-button').addEventListener('click', calculatePlan);
+        
+        // Calculate on Enter key press
+        inputs.forEach(input => {
+            input.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    calculatePlan();
+                }
+            });
         });
+        
+        // Initial calculation
+        calculatePlan();
     });
     </script>
 </body>
