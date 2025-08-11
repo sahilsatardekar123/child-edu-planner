@@ -14,6 +14,7 @@
             --bg-light: #f8f9fa;
             --shadow: 0 4px 15px rgba(0,0,0,0.1);
             --success: #5cb85c;
+            --max-width: 1200px;
         }
         
         * {
@@ -26,12 +27,18 @@
             font-family: 'Segoe UI', Roboto, -apple-system, BlinkMacSystemFont, sans-serif;
             line-height: 1.6;
             color: #333;
-            padding: 20px;
             background-color: #f5f7fa;
             min-height: 100vh;
         }
+
+        /* Container for centering content */
+        .container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 20px;
+        }
         
-        /* Animated Header */
+        /* Improved Header */
         .company-header {
             text-align: center;
             margin-bottom: 2rem;
@@ -44,6 +51,9 @@
             border-left: 5px solid var(--header-primary);
             position: relative;
             overflow: hidden;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
         }
         
         .company-header::before {
@@ -89,28 +99,24 @@
             margin-bottom: 1rem;
         }
         
-        .contact-person {
-            font-size: 1.1rem;
-            font-weight: 500;
-            margin-bottom: 0.5rem;
+        .contact-info {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
         }
         
-        .contact-numbers {
-            font-size: 1rem;
-            font-weight: 500;
-            margin-bottom: 0.8rem;
-            color: var(--text-light);
-        }
-        
-        .contact-numbers span {
-            display: inline-block;
-            margin: 0 5px;
+        .contact-block {
+            padding: 0.5rem 1rem;
+            background: rgba(2, 117, 216, 0.05);
+            border-radius: 6px;
             transition: all 0.3s;
         }
         
-        .contact-numbers span:hover {
-            color: var(--primary);
-            transform: scale(1.05);
+        .contact-block:hover {
+            background: rgba(2, 117, 216, 0.1);
+            transform: translateY(-2px);
         }
         
         .tagline {
@@ -398,11 +404,7 @@
         }
         
         /* Responsive adjustments */
-        @media (max-width: 480px) {
-            body {
-                padding: 15px;
-            }
-            
+        @media (max-width: 768px) {
             .company-header {
                 padding: 1.2rem 0.8rem;
             }
@@ -422,146 +424,161 @@
             input[type="number"] {
                 padding: 0.75rem;
             }
+            
+            .contact-info {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Company Header -->
-    <header class="company-header">
-        <div class="logo">R</div>
-        <div class="company-name">RIYA INVESTMENT</div>
-        <div class="company-subname">AND SERVICES</div>
-        <div class="contact-person">Vijay Yashwant Shetye</div>
-        <div class="contact-numbers">
-            <span>9158645995</span> • <span>9405190995</span>
-        </div>
-        <div class="tagline">Protect - Wealth, Health, & Goals.</div>
-        <div class="address">At Post Shirgaon, Tal Devgad, Dist Sindhudurg, Maharashtra-416610</div>
-    </header>
+    <div class="container">
+        <!-- Company Header -->
+        <header class="company-header">
+            <div class="logo">R</div>
+            <div class="company-name">RIYA INVESTMENT</div>
+            <div class="company-subname">AND SERVICES</div>
+            
+            <div class="contact-info">
+                <div class="contact-block">
+                    <div class="contact-person">Vijay Yashwant Shetye</div>
+                </div>
+                <div class="contact-block">
+                    <div class="contact-numbers">
+                        <span>9158645995</span> • <span>9405190995</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tagline">Protect - Wealth, Health, & Goals.</div>
+            <div class="address">At Post Shirgaon, Tal Devgad, Dist Sindhudurg, Maharashtra-416610</div>
+        </header>
 
-    <div id="child-edu-planner">
-        <h3>🎓 Child Education Planner</h3>
-        
-        <div class="progress-container" id="edu-progress">
-            <div class="progress-bar" id="edu-progress-bar"></div>
-        </div>
-        
-        <div class="input-group">
-            <label for="edu-age-now">
-                Child's Current Age (years)
-                <span class="tooltip">
-                    <span class="tooltip-icon">?</span>
-                    <span class="tooltip-text">Enter your child's current age in years (0-17)</span>
-                </span>
-            </label>
-            <input id="edu-age-now" type="number" min="0" max="17" value="3">
-            <div class="value-indicator">
-                <span>0</span>
-                <span class="active">3</span>
-                <span>10</span>
-                <span>17</span>
+        <div id="child-edu-planner">
+            <h3>🎓 Child Education Planner</h3>
+            
+            <div class="progress-container" id="edu-progress">
+                <div class="progress-bar" id="edu-progress-bar"></div>
             </div>
-        </div>
-        
-        <div class="input-group">
-            <label for="edu-age-goal">
-                Age When Funds Are Needed
-                <span class="tooltip">
-                    <span class="tooltip-icon">?</span>
-                    <span class="tooltip-text">Age when your child will need the education funds (typically 18-25)</span>
-                </span>
-            </label>
-            <input id="edu-age-goal" type="number" min="1" max="30" value="18">
-            <div class="value-indicator">
-                <span>15</span>
-                <span class="active">18</span>
-                <span>21</span>
-                <span>25</span>
+            
+            <div class="input-group">
+                <label for="edu-age-now">
+                    Child's Current Age (years)
+                    <span class="tooltip">
+                        <span class="tooltip-icon">?</span>
+                        <span class="tooltip-text">Enter your child's current age in years (0-17)</span>
+                    </span>
+                </label>
+                <input id="edu-age-now" type="number" min="0" max="17" value="3">
+                <div class="value-indicator">
+                    <span>0</span>
+                    <span class="active">3</span>
+                    <span>10</span>
+                    <span>17</span>
+                </div>
             </div>
-        </div>
-        
-        <div class="input-group">
-            <label for="edu-present-cost">
-                Present Cost (₹)
-                <span class="tooltip">
-                    <span class="tooltip-icon">?</span>
-                    <span class="tooltip-text">Current cost of the education you're planning for</span>
-                </span>
-            </label>
-            <input id="edu-present-cost" type="number" min="0" value="500000">
-        </div>
-        
-        <div class="input-group">
-            <label for="edu-inflation">
-                Estimated Annual Inflation Rate (%)
-                <span class="tooltip">
-                    <span class="tooltip-icon">?</span>
-                    <span class="tooltip-text">Expected yearly increase in education costs (typically 6-10%)</span>
-                </span>
-            </label>
-            <input id="edu-inflation" type="number" step="0.1" min="0" max="20" value="7">
-            <div class="value-indicator">
-                <span>5%</span>
-                <span class="active">7%</span>
-                <span>10%</span>
-                <span>15%</span>
+            
+            <div class="input-group">
+                <label for="edu-age-goal">
+                    Age When Funds Are Needed
+                    <span class="tooltip">
+                        <span class="tooltip-icon">?</span>
+                        <span class="tooltip-text">Age when your child will need the education funds (typically 18-25)</span>
+                    </span>
+                </label>
+                <input id="edu-age-goal" type="number" min="1" max="30" value="18">
+                <div class="value-indicator">
+                    <span>15</span>
+                    <span class="active">18</span>
+                    <span>21</span>
+                    <span>25</span>
+                </div>
             </div>
-        </div>
-        
-        <div class="input-group">
-            <label for="edu-return">
-                Expected Return on Investment (%)
-                <span class="tooltip">
-                    <span class="tooltip-icon">?</span>
-                    <span class="tooltip-text">Expected annual return on your investments (typically 8-15%)</span>
-                </span>
-            </label>
-            <input id="edu-return" type="number" step="0.1" min="0" max="20" value="12">
-            <div class="value-indicator">
-                <span>8%</span>
-                <span>10%</span>
-                <span class="active">12%</span>
-                <span>15%</span>
+            
+            <div class="input-group">
+                <label for="edu-present-cost">
+                    Present Cost (₹)
+                    <span class="tooltip">
+                        <span class="tooltip-icon">?</span>
+                        <span class="tooltip-text">Current cost of the education you're planning for</span>
+                    </span>
+                </label>
+                <input id="edu-present-cost" type="number" min="0" value="500000">
             </div>
-        </div>
-        
-        <div class="input-group">
-            <label for="edu-savings">
-                (Optional) Current Lump-Sum Savings (₹)
-                <span class="tooltip">
-                    <span class="tooltip-icon">?</span>
-                    <span class="tooltip-text">Any existing savings you've set aside for this goal</span>
-                </span>
-            </label>
-            <input id="edu-savings" type="number" min="0" value="0">
-        </div>
-        
-        <button id="edu-calc-button" type="button">
-            <span id="calc-text">Calculate Education Plan</span>
-            <span id="calc-icon" style="display: none;">🔍 Calculating...</span>
-        </button>
-        
-        <div id="edu-results">
-            <div class="result-row">
-                <span><strong>Future Cost:</strong></span>
-                <span id="edu-future-cost" class="result-value">₹‑</span>
+            
+            <div class="input-group">
+                <label for="edu-inflation">
+                    Estimated Annual Inflation Rate (%)
+                    <span class="tooltip">
+                        <span class="tooltip-icon">?</span>
+                        <span class="tooltip-text">Expected yearly increase in education costs (typically 6-10%)</span>
+                    </span>
+                </label>
+                <input id="edu-inflation" type="number" step="0.1" min="0" max="20" value="7">
+                <div class="value-indicator">
+                    <span>5%</span>
+                    <span class="active">7%</span>
+                    <span>10%</span>
+                    <span>15%</span>
+                </div>
             </div>
-            <div class="result-row">
-                <span><strong>Shortfall:</strong></span>
-                <span id="edu-shortfall" class="result-value">₹‑</span>
+            
+            <div class="input-group">
+                <label for="edu-return">
+                    Expected Return on Investment (%)
+                    <span class="tooltip">
+                        <span class="tooltip-icon">?</span>
+                        <span class="tooltip-text">Expected annual return on your investments (typically 8-15%)</span>
+                    </span>
+                </label>
+                <input id="edu-return" type="number" step="0.1" min="0" max="20" value="12">
+                <div class="value-indicator">
+                    <span>8%</span>
+                    <span>10%</span>
+                    <span class="active">12%</span>
+                    <span>15%</span>
+                </div>
             </div>
-            <div class="result-row">
-                <span><strong>Monthly Investment Needed:</strong></span>
-                <span id="edu-sip" class="result-value">₹‑</span>
+            
+            <div class="input-group">
+                <label for="edu-savings">
+                    (Optional) Current Lump-Sum Savings (₹)
+                    <span class="tooltip">
+                        <span class="tooltip-icon">?</span>
+                        <span class="tooltip-text">Any existing savings you've set aside for this goal</span>
+                    </span>
+                </label>
+                <input id="edu-savings" type="number" min="0" value="0">
             </div>
-            <div class="result-row">
-                <span><strong>Required Lumpsum Today:</strong></span>
-                <span id="edu-lumpsum" class="result-value">₹‑</span>
+            
+            <button id="edu-calc-button" type="button">
+                <span id="calc-text">Calculate Education Plan</span>
+                <span id="calc-icon" style="display: none;">🔍 Calculating...</span>
+            </button>
+            
+            <div id="edu-results">
+                <div class="result-row">
+                    <span><strong>Future Cost:</strong></span>
+                    <span id="edu-future-cost" class="result-value">₹‑</span>
+                </div>
+                <div class="result-row">
+                    <span><strong>Shortfall:</strong></span>
+                    <span id="edu-shortfall" class="result-value">₹‑</span>
+                </div>
+                <div class="result-row">
+                    <span><strong>Monthly Investment Needed:</strong></span>
+                    <span id="edu-sip" class="result-value">₹‑</span>
+                </div>
+                <div class="result-row">
+                    <span><strong>Required Lumpsum Today:</strong></span>
+                    <span id="edu-lumpsum" class="result-value">₹‑</span>
+                </div>
+                <p class="disclaimer">
+                    *Estimates only. Assumes fixed annual compounded inflation and return. 
+                    Actual results may vary based on market conditions.
+                </p>
             </div>
-            <p class="disclaimer">
-                *Estimates only. Assumes fixed annual compounded inflation and return. 
-                Actual results may vary based on market conditions.
-            </p>
         </div>
     </div>
 
