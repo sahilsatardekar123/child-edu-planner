@@ -3,15 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Child Education Planner</title>
+    <title>Child Education Planner • RIYA INVESTMENT AND SERVICES</title>
     <style>
         :root {
             --primary: #0275d8;
             --primary-hover: #025aa5;
+            --header-primary: #1a3e72;
             --border: #ddd;
             --text-light: #555;
             --bg-light: #f8f9fa;
-            --shadow: 0 2px 8px rgba(0,0,0,0.1);
+            --shadow: 0 4px 15px rgba(0,0,0,0.1);
+            --success: #5cb85c;
         }
         
         * {
@@ -21,72 +23,244 @@
         }
         
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: 'Segoe UI', Roboto, -apple-system, BlinkMacSystemFont, sans-serif;
             line-height: 1.6;
             color: #333;
             padding: 20px;
-            background-color: #f5f5f5;
+            background-color: #f5f7fa;
             min-height: 100vh;
         }
         
+        /* Animated Header */
+        .company-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding: 1.5rem 1rem;
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            transform: translateY(0);
+            animation: slideIn 0.5s ease-out;
+            border-left: 5px solid var(--header-primary);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .company-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--header-primary), var(--primary));
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        .logo {
+            font-size: 3.5rem;
+            font-weight: bold;
+            color: var(--header-primary);
+            margin-bottom: 0.5rem;
+            line-height: 1;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        
+        .logo:hover {
+            transform: scale(1.05);
+        }
+        
+        .company-name {
+            font-size: 1.6rem;
+            font-weight: bold;
+            color: var(--header-primary);
+            margin-bottom: 0.3rem;
+        }
+        
+        .company-subname {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--header-primary);
+            margin-bottom: 1rem;
+        }
+        
+        .contact-person {
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+        
+        .contact-numbers {
+            font-size: 1rem;
+            font-weight: 500;
+            margin-bottom: 0.8rem;
+            color: var(--text-light);
+        }
+        
+        .contact-numbers span {
+            display: inline-block;
+            margin: 0 5px;
+            transition: all 0.3s;
+        }
+        
+        .contact-numbers span:hover {
+            color: var(--primary);
+            transform: scale(1.05);
+        }
+        
+        .tagline {
+            font-size: 1rem;
+            font-weight: 500;
+            font-style: italic;
+            margin-bottom: 0.8rem;
+            color: var(--primary);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .tagline::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--primary);
+            transform: scaleX(0);
+            transition: transform 0.3s;
+        }
+        
+        .tagline:hover::after {
+            transform: scaleX(1);
+        }
+        
+        .address {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            line-height: 1.4;
+        }
+        
+        /* Calculator Styles */
         #child-edu-planner {
             max-width: 500px;
             margin: 0 auto;
             padding: 25px;
             background: white;
-            border-radius: 10px;
+            border-radius: 12px;
             box-shadow: var(--shadow);
+            transition: all 0.3s;
+        }
+        
+        #child-edu-planner:hover {
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
         }
         
         h3 {
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             color: var(--primary);
-            font-size: 1.5rem;
+            font-size: 1.6rem;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--header-primary));
+            border-radius: 2px;
         }
         
         .input-group {
-            margin-bottom: 15px;
+            margin-bottom: 1.2rem;
+            position: relative;
+        }
+        
+        .input-group:hover label {
+            color: var(--primary);
         }
         
         label {
             display: block;
-            margin-bottom: 6px;
+            margin-bottom: 0.5rem;
             font-weight: 500;
             color: #444;
+            transition: color 0.2s;
         }
         
         input[type="number"] {
             width: 100%;
-            padding: 12px;
+            padding: 0.85rem;
             border: 1px solid var(--border);
-            border-radius: 6px;
+            border-radius: 8px;
             font-size: 1rem;
-            transition: all 0.2s;
+            transition: all 0.3s;
+            background-color: #f9f9f9;
+        }
+        
+        input[type="number"]:hover {
+            border-color: var(--primary);
+            background-color: #fff;
         }
         
         input[type="number"]:focus {
             outline: none;
             border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(2, 117, 216, 0.1);
+            box-shadow: 0 0 0 3px rgba(2, 117, 216, 0.15);
+            background-color: #fff;
         }
         
         button {
             width: 100%;
-            padding: 14px;
-            background: var(--primary);
-            color: white;
-            border: none;
-            border-radius: 6px;
-            margin-top: 20px;
+            padding: 1.1rem;
+            margin: 1.5rem 0 0;
             font-size: 1.1rem;
-            font-weight: 500;
+            font-weight: 600;
+            background: linear-gradient(135deg, var(--primary), var(--header-primary));
+            color: #fff;
+            border: none;
+            border-radius: 8px;
             cursor: pointer;
-            transition: background 0.2s;
+            transition: all 0.3s;
+            box-shadow: 0 2px 5px rgba(2, 117, 216, 0.2);
+            position: relative;
+            overflow: hidden;
         }
         
         button:hover {
-            background: var(--primary-hover);
+            background: linear-gradient(135deg, var(--primary-hover), #153a6e);
+            box-shadow: 0 4px 8px rgba(2, 117, 216, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        button::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: rotate(45deg);
+            transition: all 0.5s;
+        }
+        
+        button:hover::after {
+            left: 100%;
         }
         
         #edu-results {
@@ -95,15 +269,16 @@
             padding: 20px;
             background: var(--bg-light);
             border: 1px dashed var(--border);
-            border-radius: 8px;
-            animation: fadeIn 0.3s ease-out;
+            border-radius: 10px;
+            animation: fadeIn 0.5s ease-out;
         }
         
         .result-row {
             display: flex;
             justify-content: space-between;
-            margin: 12px 0;
-            padding-bottom: 12px;
+            align-items: center;
+            margin: 1rem 0;
+            padding-bottom: 0.8rem;
             border-bottom: 1px solid #eee;
         }
         
@@ -114,6 +289,11 @@
         .result-value {
             font-weight: 600;
             color: var(--primary);
+            transition: all 0.3s;
+        }
+        
+        .result-row:hover .result-value {
+            transform: scale(1.05);
         }
         
         .disclaimer {
@@ -121,6 +301,7 @@
             color: var(--text-light);
             margin-top: 15px;
             line-height: 1.4;
+            text-align: center;
         }
         
         @keyframes fadeIn {
@@ -128,30 +309,47 @@
             to { opacity: 1; transform: translateY(0); }
         }
         
-        /* Responsive adjustments */
-        @media (max-width: 480px) {
-            body {
-                padding: 15px;
-            }
-            
-            #child-edu-planner {
-                padding: 20px;
-            }
-            
-            h3 {
-                font-size: 1.3rem;
-            }
-            
-            input[type="number"] {
-                padding: 10px;
-            }
+        /* Progress indicator */
+        .progress-container {
+            width: 100%;
+            height: 5px;
+            background: #eee;
+            border-radius: 5px;
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+            display: none;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            width: 0;
+            background: linear-gradient(90deg, var(--primary), var(--header-primary));
+            transition: width 0.5s ease;
+        }
+        
+        /* Value indicators */
+        .value-indicator {
+            font-size: 0.8rem;
+            color: var(--text-light);
+            margin-top: 0.3rem;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .value-indicator span {
+            transition: all 0.3s;
+        }
+        
+        .value-indicator span.active {
+            color: var(--primary);
+            font-weight: 600;
         }
         
         /* Tooltip styles */
         .tooltip {
             position: relative;
             display: inline-block;
-            margin-left: 5px;
+            margin-left: 0.3rem;
             cursor: help;
         }
         
@@ -166,6 +364,12 @@
             border-radius: 50%;
             font-size: 0.7rem;
             font-weight: bold;
+            transition: all 0.3s;
+        }
+        
+        .tooltip:hover .tooltip-icon {
+            background: var(--header-primary);
+            transform: rotate(15deg);
         }
         
         .tooltip-text {
@@ -175,7 +379,7 @@
             color: #fff;
             text-align: center;
             border-radius: 6px;
-            padding: 8px;
+            padding: 0.75rem;
             position: absolute;
             z-index: 1;
             bottom: 125%;
@@ -183,29 +387,80 @@
             transform: translateX(-50%);
             opacity: 0;
             transition: opacity 0.3s;
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             font-weight: normal;
+            line-height: 1.4;
         }
         
         .tooltip:hover .tooltip-text {
             visibility: visible;
             opacity: 1;
         }
+        
+        /* Responsive adjustments */
+        @media (max-width: 480px) {
+            body {
+                padding: 15px;
+            }
+            
+            .company-header {
+                padding: 1.2rem 0.8rem;
+            }
+            
+            .logo {
+                font-size: 3rem;
+            }
+            
+            #child-edu-planner {
+                padding: 20px;
+            }
+            
+            h3 {
+                font-size: 1.4rem;
+            }
+            
+            input[type="number"] {
+                padding: 0.75rem;
+            }
+        }
     </style>
 </head>
 <body>
+    <!-- Company Header -->
+    <header class="company-header">
+        <div class="logo">R</div>
+        <div class="company-name">RIYA INVESTMENT</div>
+        <div class="company-subname">AND SERVICES</div>
+        <div class="contact-person">Vijay Yashwant Shetye</div>
+        <div class="contact-numbers">
+            <span>9158645995</span> • <span>9405190995</span>
+        </div>
+        <div class="tagline">Protect - Wealth, Health, & Goals.</div>
+        <div class="address">At Post Shirgaon, Tal Devgad, Dist Sindhudurg, Maharashtra-416610</div>
+    </header>
+
     <div id="child-edu-planner">
         <h3>🎓 Child Education Planner</h3>
+        
+        <div class="progress-container" id="edu-progress">
+            <div class="progress-bar" id="edu-progress-bar"></div>
+        </div>
         
         <div class="input-group">
             <label for="edu-age-now">
                 Child's Current Age (years)
                 <span class="tooltip">
                     <span class="tooltip-icon">?</span>
-                    <span class="tooltip-text">Enter your child's current age in years</span>
+                    <span class="tooltip-text">Enter your child's current age in years (0-17)</span>
                 </span>
             </label>
-            <input id="edu-age-now" type="number" min="0" value="3">
+            <input id="edu-age-now" type="number" min="0" max="17" value="3">
+            <div class="value-indicator">
+                <span>0</span>
+                <span class="active">3</span>
+                <span>10</span>
+                <span>17</span>
+            </div>
         </div>
         
         <div class="input-group">
@@ -213,10 +468,16 @@
                 Age When Funds Are Needed
                 <span class="tooltip">
                     <span class="tooltip-icon">?</span>
-                    <span class="tooltip-text">Age when your child will need the education funds</span>
+                    <span class="tooltip-text">Age when your child will need the education funds (typically 18-25)</span>
                 </span>
             </label>
-            <input id="edu-age-goal" type="number" min="0" value="18">
+            <input id="edu-age-goal" type="number" min="1" max="30" value="18">
+            <div class="value-indicator">
+                <span>15</span>
+                <span class="active">18</span>
+                <span>21</span>
+                <span>25</span>
+            </div>
         </div>
         
         <div class="input-group">
@@ -227,7 +488,7 @@
                     <span class="tooltip-text">Current cost of the education you're planning for</span>
                 </span>
             </label>
-            <input id="edu-present-cost" type="number" value="500000">
+            <input id="edu-present-cost" type="number" min="0" value="500000">
         </div>
         
         <div class="input-group">
@@ -235,10 +496,16 @@
                 Estimated Annual Inflation Rate (%)
                 <span class="tooltip">
                     <span class="tooltip-icon">?</span>
-                    <span class="tooltip-text">Expected yearly increase in education costs</span>
+                    <span class="tooltip-text">Expected yearly increase in education costs (typically 6-10%)</span>
                 </span>
             </label>
-            <input id="edu-inflation" type="number" step="0.1" value="7">
+            <input id="edu-inflation" type="number" step="0.1" min="0" max="20" value="7">
+            <div class="value-indicator">
+                <span>5%</span>
+                <span class="active">7%</span>
+                <span>10%</span>
+                <span>15%</span>
+            </div>
         </div>
         
         <div class="input-group">
@@ -246,10 +513,16 @@
                 Expected Return on Investment (%)
                 <span class="tooltip">
                     <span class="tooltip-icon">?</span>
-                    <span class="tooltip-text">Expected annual return on your investments</span>
+                    <span class="tooltip-text">Expected annual return on your investments (typically 8-15%)</span>
                 </span>
             </label>
-            <input id="edu-return" type="number" step="0.1" value="12">
+            <input id="edu-return" type="number" step="0.1" min="0" max="20" value="12">
+            <div class="value-indicator">
+                <span>8%</span>
+                <span>10%</span>
+                <span class="active">12%</span>
+                <span>15%</span>
+            </div>
         </div>
         
         <div class="input-group">
@@ -260,10 +533,13 @@
                     <span class="tooltip-text">Any existing savings you've set aside for this goal</span>
                 </span>
             </label>
-            <input id="edu-savings" type="number" value="0">
+            <input id="edu-savings" type="number" min="0" value="0">
         </div>
         
-        <button id="edu-calc-button" type="button">Calculate Education Plan</button>
+        <button id="edu-calc-button" type="button">
+            <span id="calc-text">Calculate Education Plan</span>
+            <span id="calc-icon" style="display: none;">🔍 Calculating...</span>
+        </button>
         
         <div id="edu-results">
             <div class="result-row">
@@ -293,6 +569,11 @@
     document.addEventListener('DOMContentLoaded', () => {
         const $ = id => document.getElementById(id);
         const inputs = document.querySelectorAll('input[type="number"]');
+        const calcButton = $('edu-calc-button');
+        const progressBar = $('edu-progress-bar');
+        const progressContainer = $('edu-progress');
+        const calcText = $('calc-text');
+        const calcIcon = $('calc-icon');
         
         // Format number with Indian locale commas
         const formatCurrency = val => {
@@ -301,63 +582,134 @@
                 : '₹0';
         };
         
+        // Animate progress bar
+        function animateProgress(duration) {
+            let start = null;
+            progressContainer.style.display = 'block';
+            
+            function step(timestamp) {
+                if (!start) start = timestamp;
+                const progress = Math.min((timestamp - start) / duration, 1);
+                progressBar.style.width = `${progress * 100}%`;
+                
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                } else {
+                    progressContainer.style.display = 'none';
+                    progressBar.style.width = '0';
+                }
+            }
+            
+            window.requestAnimationFrame(step);
+        }
+        
+        // Update value indicators
+        function updateIndicators() {
+            document.querySelectorAll('.value-indicator span').forEach(span => {
+                span.classList.remove('active');
+            });
+            
+            // Current age indicator
+            const ageNow = +($('edu-age-now').value);
+            if (ageNow <= 3) $('edu-age-now').parentElement.querySelector('.value-indicator span:nth-child(2)').classList.add('active');
+            else if (ageNow <= 10) $('edu-age-now').parentElement.querySelector('.value-indicator span:nth-child(3)').classList.add('active');
+            else $('edu-age-now').parentElement.querySelector('.value-indicator span:nth-child(4)').classList.add('active');
+            
+            // Goal age indicator
+            const ageGoal = +($('edu-age-goal').value);
+            if (ageGoal <= 18) $('edu-age-goal').parentElement.querySelector('.value-indicator span:nth-child(2)').classList.add('active');
+            else if (ageGoal <= 21) $('edu-age-goal').parentElement.querySelector('.value-indicator span:nth-child(3)').classList.add('active');
+            else $('edu-age-goal').parentElement.querySelector('.value-indicator span:nth-child(4)').classList.add('active');
+            
+            // Inflation rate indicator
+            const inflation = +($('edu-inflation').value);
+            if (inflation <= 7) $('edu-inflation').parentElement.querySelector('.value-indicator span:nth-child(2)').classList.add('active');
+            else if (inflation <= 10) $('edu-inflation').parentElement.querySelector('.value-indicator span:nth-child(3)').classList.add('active');
+            else $('edu-inflation').parentElement.querySelector('.value-indicator span:nth-child(4)').classList.add('active');
+            
+            // Return rate indicator
+            const returnRate = +($('edu-return').value);
+            if (returnRate <= 10) $('edu-return').parentElement.querySelector('.value-indicator span:nth-child(2)').classList.add('active');
+            else if (returnRate <= 12) $('edu-return').parentElement.querySelector('.value-indicator span:nth-child(3)').classList.add('active');
+            else $('edu-return').parentElement.querySelector('.value-indicator span:nth-child(4)').classList.add('active');
+        }
+        
         // Calculate and display results
         function calculatePlan() {
-            const ageNow = +($('edu-age-now').value) || 0;
-            const ageGoal = +($('edu-age-goal').value) || ageNow;
-            const years = Math.max(ageGoal - ageNow, 0);
-            const present = +($('edu-present-cost').value) || 0;
-            const inflation = +($('edu-inflation').value) / 100 || 0;
-            const rate = +($('edu-return').value) / 100 || 0;
-            const savings = +($('edu-savings').value) || 0;
+            // Show calculating state
+            calcText.style.display = 'none';
+            calcIcon.style.display = 'inline';
+            calcButton.disabled = true;
+            progressContainer.style.display = 'block';
+            animateProgress(800);
             
-            // Validate inputs
-            if (years <= 0) {
-                alert("Please enter a future age greater than current age");
-                return;
-            }
+            // Simulate calculation delay for better UX
+            setTimeout(() => {
+                const ageNow = +($('edu-age-now').value) || 0;
+                const ageGoal = +($('edu-age-goal').value) || ageNow;
+                const years = Math.max(ageGoal - ageNow, 0);
+                const present = +($('edu-present-cost').value) || 0;
+                const inflation = +($('edu-inflation').value) / 100 || 0;
+                const rate = +($('edu-return').value) / 100 || 0;
+                const savings = +($('edu-savings').value) || 0;
+                
+                // Validate inputs
+                if (years <= 0) {
+                    alert("Please enter a future age greater than current age");
+                    calcText.style.display = 'inline';
+                    calcIcon.style.display = 'none';
+                    calcButton.disabled = false;
+                    return;
+                }
 
-            // Calculate future cost
-            const futureCost = present * Math.pow(1 + inflation, years);
-            
-            // Calculate future value of current savings
-            const futureSavings = savings * Math.pow(1 + rate, years);
-            
-            // Calculate shortfall
-            const shortfall = Math.max(futureCost - futureSavings, 0);
-            
-            // Calculate monthly SIP needed
-            const months = years * 12;
-            const monthlyRate = rate / 12;
-            let sip = 0;
-            
-            if (months > 0 && monthlyRate > 0) {
-                sip = shortfall * monthlyRate / (Math.pow(1 + monthlyRate, months) - 1);
-            } else if (months > 0) {
-                sip = shortfall / months;
-            }
-            
-            // Calculate lumpsum needed today
-            const lumpsum = shortfall / Math.pow(1 + rate, years);
+                // Calculate future cost
+                const futureCost = present * Math.pow(1 + inflation, years);
+                
+                // Calculate future value of current savings
+                const futureSavings = savings * Math.pow(1 + rate, years);
+                
+                // Calculate shortfall
+                const shortfall = Math.max(futureCost - futureSavings, 0);
+                
+                // Calculate monthly SIP needed
+                const months = years * 12;
+                const monthlyRate = rate / 12;
+                let sip = 0;
+                
+                if (months > 0 && monthlyRate > 0) {
+                    sip = shortfall * monthlyRate / (Math.pow(1 + monthlyRate, months) - 1);
+                } else if (months > 0) {
+                    sip = shortfall / months;
+                }
+                
+                // Calculate lumpsum needed today
+                const lumpsum = shortfall / Math.pow(1 + rate, years);
 
-            // Update results
-            $('edu-future-cost').innerText = formatCurrency(futureCost);
-            $('edu-shortfall').innerText = formatCurrency(shortfall);
-            $('edu-sip').innerText = formatCurrency(sip);
-            $('edu-lumpsum').innerText = formatCurrency(lumpsum);
-            
-            // Show results with animation
-            $('edu-results').style.display = 'block';
-            
-            // Scroll to results if they're not fully visible
-            $('edu-results').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                // Update results
+                $('edu-future-cost').innerText = formatCurrency(futureCost);
+                $('edu-shortfall').innerText = formatCurrency(shortfall);
+                $('edu-sip').innerText = formatCurrency(sip);
+                $('edu-lumpsum').innerText = formatCurrency(lumpsum);
+                
+                // Show results with animation
+                $('edu-results').style.display = 'block';
+                
+                // Reset button state
+                calcText.style.display = 'inline';
+                calcIcon.style.display = 'none';
+                calcButton.disabled = false;
+                
+                // Scroll to results if they're not fully visible
+                $('edu-results').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }, 800);
         }
         
         // Add event listeners
         $('edu-calc-button').addEventListener('click', calculatePlan);
         
-        // Calculate on Enter key press
+        // Update indicators when inputs change
         inputs.forEach(input => {
+            input.addEventListener('input', updateIndicators);
             input.addEventListener('keypress', (e) => {
                 if (e.key === 'Enter') {
                     calculatePlan();
@@ -365,7 +717,8 @@
             });
         });
         
-        // Initial calculation
+        // Initial setup
+        updateIndicators();
         calculatePlan();
     });
     </script>
